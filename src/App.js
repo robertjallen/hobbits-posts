@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './App.css';
 import Hobbits from './components/Hobbits'
+import HobbitPosts from './components/HobbitPosts';
+import {Route} from 'react-router-dom';
 
 function App() {
 
@@ -16,7 +18,11 @@ function App() {
   }, [])
   return (
     <div className="App">
-      <Hobbits hobbits={hobbits}/>
+      <Route exact path="/">
+          <Hobbits hobbits={hobbits}/>
+      </Route>
+      <Route path='/posts' component={HobbitPosts} />
+      
     </div>
   );
 }

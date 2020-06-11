@@ -14,7 +14,8 @@
 }
 .card{
   border: 1px solid #282c34;
-  margin: 1px;
+  margin: 5px;
+  padding: 5px;
 }
 .App-header {
   background-color: #282c34;
