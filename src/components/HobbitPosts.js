@@ -4,11 +4,26 @@ import Post from './Post'
 
 
 export default function HobbitPosts(props) {
-  console.log("posts", props.history.location.state.props.hobbit.id)
+  // console.log("posts", props.history.location.state.props.hobbit.id)
   
   const [posts, setPosts] = useState([])
   const [text, setText] = useState({})
   
+  const handleDelete = (id) => {
+    console.log(id)
+    axios.delete(`https://hobbits-posts.herokuapp.com/posts/${id}`)
+    .then(res => {
+      console.log("postID",res.data.postID)
+      console.log("id", id)
+      const newPosts = posts.filter(post => post.id != res.data.postID)
+      console.log("newPosts", newPosts)
+      setPosts(newPosts)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   useEffect(() => {
     axios.get(`https://hobbits-posts.herokuapp.com/api/users/${props.history.location.state.props.hobbit.id}/posts`)
     .then(res => {
@@ -41,15 +56,14 @@ export default function HobbitPosts(props) {
         .catch(err => {
           console.log(err)
         })
-      // resetForm();
     }
   };
 
-  console.log(posts)
+  // console.log(posts)
   return (
     <div>
       {posts.map(post => {
-        return <Post post={post}/>
+        return <Post post={post} handleDelete={handleDelete}/>
       })}
 
       <form onSubmit={handleSubmit}>
